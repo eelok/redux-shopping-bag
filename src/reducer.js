@@ -5,14 +5,32 @@ function reducer(state, action) {
         return {...state, cart: []};
     }
     if (action.type === DECREASE) {
-        console.log("decrease")
+        let tempCart = [];
+        if (action.payload.amount === 1) {
+            tempCart = state.cart.filter(cartItem => cartItem.id !== action.payload.id);
+        } else {
+            tempCart = state.cart.map(cartItem => {
+                if (cartItem.id === action.payload.id) {
+                    cartItem = {...cartItem, amount: cartItem.amount - 1};
+                }
+                return cartItem;
+            });
+        }
+        return {...state, cart: tempCart}
     }
     if (action.type === INCREASE) {
-        console.log('INCREASE')
+        const tempCart = state.cart.map(cartItem => {
+            if (cartItem.id === action.payload.id) {
+                cartItem = {...cartItem, amount: cartItem.amount + 1};
+            }
+            return cartItem;
+        });
+        return {...state, cart: tempCart};
     }
     if (action.type === REMOVE) {
-        return {...state,
-                cart: state.cart.filter(cartItem => cartItem.id !== action.payload.id)
+        return {
+            ...state,
+            cart: state.cart.filter(cartItem => cartItem.id !== action.payload.id)
         };
     }
     return state;
