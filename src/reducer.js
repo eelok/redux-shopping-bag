@@ -11,9 +11,9 @@ function reducer(state, action) {
         console.log('INCREASE')
     }
     if (action.type === REMOVE) {
-
-        console.log('remove item', action.id )
-        console.log('remove item' )
+        return {...state,
+                cart: state.cart.filter(cartItem => cartItem.id !== action.payload.id)
+        };
     }
     return state;
 }
