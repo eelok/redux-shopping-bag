@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { DECREASE, INCREASE, REMOVE } from "../actions";
+import {DECREASE, INCREASE, REMOVE, removeItem} from "../actions";
 
-const CartItem = ({img, title, price, amount, remove, decrease, increase}) => {
+const CartItem = ({img, title, price, amount, remove, decrease, increase , removeItem}) => {
     return (
         <div className="cart-item">
             <img src={img} alt={title}/>
@@ -43,7 +43,8 @@ const CartItem = ({img, title, price, amount, remove, decrease, increase}) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     const {id, amount} = ownProps;
     return {
-        remove: () => dispatch({type: REMOVE, payload: {id}}),
+        // remove: () => dispatch({type: REMOVE, payload: {id}}),
+        remove: () => dispatch(removeItem(id)),
         decrease: () => dispatch({type: DECREASE, payload: {id, amount}}),
         increase: () => dispatch({type: INCREASE, payload: {id, amount}})
     };
